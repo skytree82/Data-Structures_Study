@@ -13,7 +13,7 @@ class Heap {
 private:
 	int heapSize;
 	T heapArr[MAX];
-	bool (*cmp)(T senior, T subord);
+	bool (*cmp)(T senior, T subord); // senior의 우선순위가 높으면 true
 public:
 	Heap(bool(*_cmp)(T senior, T subord)) : cmp(_cmp), heapSize(0) {}
 
