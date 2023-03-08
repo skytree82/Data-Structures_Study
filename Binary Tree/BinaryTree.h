@@ -3,6 +3,9 @@
 
 #include <iostream>
 
+using namespace std;
+
+
 template <class T>
 class BTree {
 private:
@@ -44,6 +47,32 @@ public:
 		size += bt->size;
 	}
 
+	BTree<T>* RemoveLeftSubTree() {
+		BTree<T>* delNode = this->left;
+		this->left = NULL;
+
+		return delNode;
+	}
+
+	BTree<T>* RemoveRightSubTree() {
+		BTree<T>* delNode = this->right;
+		this->right = NULL;
+
+		return delNode;
+	}
+
+	void ChangeLeftSubTree(BTree<T>* child) {
+		this->left = child;
+	}
+
+	void ChangeRightSubTree(BTree<T>* child) {
+		this->right = child;
+	}
+
+	void ChangeData(T newData) {
+		data = newData;
+	}
+
 	T GetData() {
 		return data;
 	}
@@ -51,6 +80,9 @@ public:
 	int BTSize() {
 		return size;
 	}
+
+	friend void ChangeLeftSubTree(BTree<T>* parent, BTree<T>* child);
+	friend void ChangeRightSubTree(BTree<T>* parent, BTree<T>* child);
 };
 
 template <class T>
@@ -63,30 +95,30 @@ void DeleteSubTree(BTree<T>* bt) {
 }
 
 template <class T>
-void PreTrav(BTree<T>* nd) {
+void PreTrav(BTree<T>* nd, void (*action)(T data)) {
 	if (nd == NULL) return;
 
-	cout << nd->GetData();
-	PreTrav(nd->GetLeftTree());
-	PreTrav(nd->GetRightTree());
+	action(nd->GetData());
+	PreTrav(nd->GetLeftTree(), action);
+	PreTrav(nd->GetRightTree(), action);
 }
 
 template <class T>
-void InOrTrav(BTree<T>* nd) {
+void InorTrav(BTree<T>* nd, void (*action)(T data)) {
 	if (nd == NULL) return;
 
-	InOrTrav(nd->GetLeftTree());
-	cout << nd->GetData();
-	InOrTrav(nd->GetRightTree());
+	InorTrav(nd->GetLeftTree(), action);
+	action(nd->GetData());
+	InorTrav(nd->GetRightTree(), action);
 }
 
 template <class T>
-void PostTrav(BTree<T>* nd) {
+void PostTrav(BTree<T>* nd, void (*action)(T data)) {
 	if (nd == NULL) return;
 
-	PostTrav(nd->GetLeftTree());
-	PostTrav(nd->GetRightTree());
-	cout << nd->GetData();
+	PostTrav(nd->GetLeftTree(), action);
+	PostTrav(nd->GetRightTree(), action);
+	action(nd->GetData());
 }
 
 #endif
