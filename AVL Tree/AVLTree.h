@@ -21,7 +21,7 @@ public:
 		}
 		BTree<T>* curNode = avlt;
 		BTree<T>* newNode = new BTree<T>(data);
-		stack<BTree<T>*> parentNodes;  // 데이터를 추가하는 과정에서 지나간 노드들
+		stack<BTree<T>*> parentNodes;  // 데이터를 추가하는 과정에서 지나간 노드들. 스택 활용하여 가장 최근 부모 노드부터 리밸런싱
 
 		while (true) {
 			if (data == curNode->GetData()) {   // 데이터가 중복되면
