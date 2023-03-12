@@ -103,7 +103,7 @@ public:
 				parentNode->RemoveRightSubTree(); // 오른쪽 노드 제거
 		}
 
-		if (delNode->GetLeftTree() == NULL || delNode->GetRightTree() == NULL) { // 삭제 대상이 한 개의 자식노드 포함
+		else if (delNode->GetLeftTree() == NULL || delNode->GetRightTree() == NULL) { // 삭제 대상이 한 개의 자식노드 포함
 			BTree<T>* delChildNode; // 삭제 대상의 자식 트리 루트 노드
 
 			// 삭제 대상의 자식 트리 찾기
